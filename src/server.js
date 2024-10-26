@@ -5,6 +5,8 @@ import 'dotenv/config';
 
 import { env } from './utils/env.js';
 
+import * as contactsServices from './services/contacts.js';
+
 export const startServer = () => {
   const app = express();
 
@@ -17,21 +19,43 @@ export const startServer = () => {
 
   app.use(logger);
 
-  app.get('/', (req, res) => {
+  app.get('/contacts', async (req, res) => {
+    const data = await contactsServices.getContacts();
+
     res.json({
-      messege: 'Start project',
+      status: 200,
+      message: 'Successfully found contacts!',
+      data,
+    });
+  });
+
+  app.get('/contacts/:id', async (req, res) => {
+    const { id } = req.params;
+    const data = await contactsServices.getContactsById(id);
+
+    if (!data) {
+      return res.status(404).json({
+        status: 404,
+        message: `Contact not found`,
+      });
+    }
+
+    res.json({
+      status: 200,
+      message: `Successfully found contact with id ${id}!`,
+      data,
     });
   });
 
   app.use((req, res) => {
     res.status(404).json({
-      messege: '${req.url} not found',
+      message: `${req.url} not found`,
     });
   });
 
   app.use((error, req, res, next) => {
     res.status(500).json({
-      messege: error.messege,
+      message: 'Internal Server Error',
     });
   });
 
