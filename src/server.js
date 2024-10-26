@@ -22,11 +22,19 @@ export const startServer = () => {
   app.get('/contacts', async (req, res) => {
     const data = await contactsServices.getContacts();
 
-    res.json({
-      status: 200,
-      message: 'Successfully found contacts!',
-      data,
-    });
+    res.json(
+      JSON.parse(
+        JSON.stringify(
+          {
+            status: 200,
+            message: 'Successfully found contacts!',
+            data,
+          },
+          null,
+          2,
+        ),
+      ),
+    );
   });
 
   app.get('/contacts/:id', async (req, res) => {
@@ -34,29 +42,61 @@ export const startServer = () => {
     const data = await contactsServices.getContactsById(id);
 
     if (!data) {
-      return res.status(404).json({
-        status: 404,
-        message: `Contact not found`,
-      });
+      return res.status(404).json(
+        JSON.parse(
+          JSON.stringify(
+            {
+              status: 404,
+              message: `Contact not found`,
+            },
+            null,
+            2,
+          ),
+        ),
+      );
     }
 
-    res.json({
-      status: 200,
-      message: `Successfully found contact with id ${id}!`,
-      data,
-    });
+    res.json(
+      JSON.parse(
+        JSON.stringify(
+          {
+            status: 200,
+            message: `Successfully found contact with id ${id}!`,
+            data,
+          },
+          null,
+          2,
+        ),
+      ),
+    );
   });
 
   app.use((req, res) => {
-    res.status(404).json({
-      message: `${req.url} not found`,
-    });
+    res.status(404).json(
+      JSON.parse(
+        JSON.stringify(
+          {
+            message: `${req.url} not found`,
+          },
+          null,
+          2,
+        ),
+      ),
+    );
   });
 
   app.use((error, req, res, next) => {
-    res.status(500).json({
-      message: 'Internal Server Error',
-    });
+    res.status(500).json(
+      JSON.parse(
+        JSON.stringify(
+          {
+            message: 'Internal Server Error',
+          },
+          null,
+          2,
+        ),
+      ),
+    );
   });
 
   const port = Number(env('PORT', 3000));
