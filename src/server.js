@@ -8,7 +8,7 @@ import { env } from './utils/env.js';
 import contactsRouter from './routers/contacts.js';
 
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
-import { errorHendler } from './middlewares/errorHandler.js';
+import { errorHandler } from './middlewares/errorHandler.js';
 import { logger } from './middlewares/logger.js';
 
 export const startServer = () => {
@@ -16,13 +16,15 @@ export const startServer = () => {
 
   app.use(cors());
 
+  app.use(express.json());
+
   app.use(logger);
 
   app.use('/contacts', contactsRouter);
 
   app.use(notFoundHandler);
 
-  app.use(errorHendler);
+  app.use(errorHandler);
 
   const port = Number(env('PORT', 3000));
 
