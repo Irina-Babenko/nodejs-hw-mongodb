@@ -40,6 +40,8 @@ contactsSchema.pre('findoneAndUpdate', setUpdateSettings);
 
 contactsSchema.post('findoneAndUpdate', handlerSaveError);
 
+export const sortByList = ['name', 'phoneNumber', 'contactType'];
+
 const ContactsCollection = model('contacts', contactsSchema);
 
 export default ContactsCollection;
