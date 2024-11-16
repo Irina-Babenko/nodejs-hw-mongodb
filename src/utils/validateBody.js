@@ -10,8 +10,6 @@ const validateBody = (schema) => {
     } catch (error) {
       return next(createHttpError(400, error.message));
     }
-
-    next();
   };
 
   return func;
