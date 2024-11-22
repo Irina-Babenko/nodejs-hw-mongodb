@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose';
 
 import { contactTypeList } from '../../constants/contacts.js';
 
-import { handlerSaveError, setUpdateSettings } from './hooks.js';
+import { handleSaveError, setUpdateSettings } from './hooks.js';
 
 const contactsSchema = new Schema(
   {
@@ -34,11 +34,11 @@ const contactsSchema = new Schema(
   },
 );
 
-contactsSchema.post('save', handlerSaveError);
+contactsSchema.post('save', handleSaveError);
 
-contactsSchema.pre('findoneAndUpdate', setUpdateSettings);
+contactsSchema.pre('findOneAndUpdate', setUpdateSettings);
 
-contactsSchema.post('findoneAndUpdate', handlerSaveError);
+contactsSchema.post('findOneAndUpdate', handleSaveError);
 
 export const sortByList = ['name', 'phoneNumber', 'contactType'];
 

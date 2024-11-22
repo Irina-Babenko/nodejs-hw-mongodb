@@ -6,6 +6,7 @@ import 'dotenv/config';
 import { env } from './utils/env.js';
 
 import contactsRouter from './routers/contacts.js';
+import authRouter from './routers/auth.js';
 
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
@@ -21,6 +22,8 @@ export const startServer = () => {
   app.use(logger);
 
   app.use('/contacts', contactsRouter);
+
+  app.use('/auth', authRouter);
 
   app.use(notFoundHandler);
 
