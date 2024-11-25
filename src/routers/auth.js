@@ -21,4 +21,11 @@ authRouter.post(
   ctrlWrapper(authControllers.loginController),
 );
 
+authRouter.post(
+  '/refresh',
+  ctrlWrapper(authControllers.refreshSessionController),
+);
+
+authRouter.post('/logout', ctrlWrapper(authControllers.logoutController));
+
 export default authRouter;
