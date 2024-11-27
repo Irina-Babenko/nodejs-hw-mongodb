@@ -22,7 +22,7 @@ contactsRouter.get('/', ctrlWrapper(contactsControllers.getContactsController));
 contactsRouter.get(
   '/:id',
   isValidId,
-  ctrlWrapper(contactsControllers.getContactsByIdController),
+  ctrlWrapper(contactsControllers.getContactByIdController),
 );
 
 contactsRouter.post(
