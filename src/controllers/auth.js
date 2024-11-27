@@ -17,14 +17,19 @@ const setupSession = (res, session) => {
 };
 
 export const registerController = async (req, res) => {
-  const data = await authServices.register(req.body);
+  try {
+    const data = await authServices.register(req.body);
 
-  res.status(201).json({
-    status: 201,
-    message: 'Successfully registerd user',
-  });
+    res.status(201).json({
+      status: 201,
+      message: 'Successfully registered a user!',
+      data,
+    });
+  } catch (error) {
+    res.status(error.status || 500).json({ message: error.message });
+  }
 };
-
+//
 export const loginController = async (req, res) => {
   const session = await authServices.login(req.body);
 
