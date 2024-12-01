@@ -122,7 +122,6 @@ export const patchContactsController = async (req, res, next) => {
       status: 200,
       message: 'Contact patched successfully',
       data: result.contact,
-      isNew: result.isNew,
     });
   } catch (error) {
     next(error);
